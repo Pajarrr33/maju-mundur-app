@@ -36,9 +36,9 @@ class RewardController extends Controller
                 ] 
             ], 400));
         }
-        
+
         $redemption->customer_id = $customer_id;
-        $redemption->reedeemed_at = now();
+        $redemption->redeemed_at = now();
         $redemption->points = $reward->points_required;
         $redemption->save();
 

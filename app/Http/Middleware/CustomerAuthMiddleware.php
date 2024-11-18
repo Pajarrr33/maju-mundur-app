@@ -21,7 +21,11 @@ class CustomerAuthMiddleware
         $authenticate = true ;
 
         if (!$token) {
-            $authenticate = false ;
+            return response()->json([
+                "errors" => [
+                    'message' => 'Authorization token missing'
+                ] 
+            ], 401); 
         }
 
         $user = Users::where('token', $token)->where('role', 'customer')->first();
@@ -34,7 +38,7 @@ class CustomerAuthMiddleware
         if (!$authenticate) {
             return response()->json([
                 "errors" => [
-                    'message' => 'Unauthorized'
+                    'message' => 'Invalid or unauthorized token'
                 ] 
             ], 401);
         }
